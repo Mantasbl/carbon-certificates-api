@@ -15,7 +15,7 @@ export class AuthServiceImpl implements AuthService {
     return this.jwtService.sign(payload, jwtOptions);
   }
 
-  async validateUser(username: string, password: string): Promise<void> {
+  async validateUser(username: string, password: string): Promise<number> {
     const authOptions = CONFIG.AUTH() as AuthOptions;
     const user = await this.users.obtainUserByUsername(username);
     const passwordHash = crypto
@@ -25,5 +25,6 @@ export class AuthServiceImpl implements AuthService {
     if (user.password !== passwordHash) {
       throw new IncorrectLoginDetails();
     }
+    return user.id;
   }
 }

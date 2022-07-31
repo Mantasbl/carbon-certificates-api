@@ -4,6 +4,7 @@ import {
   CarbonCertificateRepository,
   CarbonCertificateUpdateParams,
 } from '../../../domain/capabilities/carbon-certificates-repository';
+import { CertificateDoesNotBelongToUserError } from '../../../domain/exceptions/certificate-does-not-belong-to-user';
 import { CertificateNotFoundError } from '../../../domain/exceptions/certificate-not-found';
 import { CarbonCertificate } from '../../../domain/models/carbon-certificate';
 import * as carbonCertificate from '../../../domain/types/carbon-certificate';
@@ -41,6 +42,11 @@ export class CarbonCertificateEntityManager
   async obtainOneByOwner(id: number): Promise<CarbonCertificate> {
     const certificateQuery = this.createQueryBuilder('carbon_certificate')
       .leftJoin('carbon_certificate.owner', 'owner')
+      .select('owner.id', 'owner_id')
+      .addSelect('owner.username', 'owner_username')
+      .addSelect('carbon_certificate.status', 'carbon_certificate_status')
+      .addSelect('carbon_certificate.country', 'carbon_certificate_country')
+      .addSelect('carbon_certificate.id', 'carbon_certificate_id')
       .where('carbon_certificate.id = :id')
       .setParameters({ id });
 
@@ -50,9 +56,11 @@ export class CarbonCertificateEntityManager
 
   async updateOneOwnership(params: CarbonCertificateUpdateParams): Promise<CarbonCertificate> {
     const findResult = await this.obtainOneByOwner(params.id);
-
     if (!findResult) {
       throw new CertificateNotFoundError();
+    }
+    if (findResult.owner?.id && findResult.owner?.id !== params.owner) {
+      throw new CertificateDoesNotBelongToUserError();
     }
     const saveResult = await this.save({
       ...findResult,

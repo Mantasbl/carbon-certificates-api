@@ -30,8 +30,12 @@ export class AuthController {
   @ErrorStatus(IncorrectLoginDetails, HttpStatus.NOT_FOUND)
   @Get('/v1/login')
   async generateAuthJWT(@Query() query: AuthFilterQuery): Promise<JWT> {
-    await this.authService.validateUser(query.username, query.password);
-    const jwt = await this.authService.generateJwt({ username: query.username, password: query.password });
+    const validatedUser = await this.authService.validateUser(query.username, query.password);
+    const jwt = await this.authService.generateJwt({
+      username: query.username,
+      password: query.password,
+      id: validatedUser,
+    });
     return { access_token: jwt };
   }
 }

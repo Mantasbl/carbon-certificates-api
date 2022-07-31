@@ -11,7 +11,7 @@ export class CarbonCertificateServiceImpl implements CarbonCertificateService {
 
   async updateOneOwnership(params: CarbonCertificateFilterParams): Promise<CarbonCertificate> {
     const user = await this.users.obtainUserByUsername(params.newOwner);
-    return await this.certificates.updateOneOwnership({ id: params.id, newOwner: user });
+    return await this.certificates.updateOneOwnership({ id: params.id, newOwner: user, owner: params.owner });
   }
 
   async obtainManyByOwner(userId: number): Promise<CarbonCertificate[]> {

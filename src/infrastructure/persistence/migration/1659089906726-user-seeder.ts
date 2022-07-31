@@ -4,16 +4,16 @@ export class UserSeeder1659089906726 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`INSERT INTO "user" ("username","password")
     VALUES
-      ('ac@yahoo.edu','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('natoque.penatibus.et@hotmail.com','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('purus.duis@google.couk','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('enim.mi@hotmail.org','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('nullam.feugiat@yahoo.net','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('curabitur.dictum.phasellus@yahoo.net','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('curabitur.sed.tortor@protonmail.com','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('varius.et@protonmail.ca','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('proin@hotmail.com','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks='),
-      ('id@hotmail.couk','zf8IKRkCgubAmkbI/4Uwvj8kLvctp0Crvb+I599jgks=')`);
+      ('ac@yahoo.edu','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('natoque.penatibus.et@hotmail.com','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('purus.duis@google.couk','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('enim.mi@hotmail.org','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('nullam.feugiat@yahoo.net','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('curabitur.dictum.phasellus@yahoo.net','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('curabitur.sed.tortor@protonmail.com','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('varius.et@protonmail.ca','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('proin@hotmail.com','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('id@hotmail.couk','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg=')`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

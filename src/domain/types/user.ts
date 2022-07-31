@@ -1,5 +1,4 @@
-export interface User {
+export interface UserType {
   readonly id: number;
   readonly username: string;
-  readonly password: string;
 }

@@ -1,4 +1,6 @@
 export interface JwtPayload {
+  readonly id: number;
+
   readonly username: string;
 
   readonly password: string;

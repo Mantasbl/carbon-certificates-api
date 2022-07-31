@@ -15,10 +15,14 @@ export interface CarbonCertificateFilterParams {
   readonly id: number;
 
   readonly newOwner: string;
+
+  readonly owner: number;
 }
 
 export interface CarbonCertificateUpdateParams {
   readonly id: number;
 
   readonly newOwner: User;
+
+  readonly owner: number;
 }
