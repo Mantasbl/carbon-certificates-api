@@ -17,7 +17,6 @@ Once the docker container is running, assuming env has sample values, you should
 # Accessing users
 All user usernames can be found in migrations,
 Default passwords for all user are `NotAPassword`, hashed with salt in with, default password is also provided as an example on swagger schema
-## TODO (due to lack of spare time they got postponed to last weekend of July.)
 
-1. Add /login endpoint for passport-jwt authentication, that generates jwt for use on GET@ /api/v1/certificates and PATCH@ /api/v1/certificates/{certificateId} endpoints, and limit access to only those certificates that belong to logged in user
-2. Add unit tests using Jest
+# Running tests
+`npm run test`
