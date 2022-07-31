@@ -4,16 +4,16 @@ export class UserSeeder1659089906726 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`INSERT INTO "user" ("username","password")
     VALUES
-      ('ac@yahoo.edu','OZN26WPR3LA'),
-      ('natoque.penatibus.et@hotmail.com','WIX05NHR2FR'),
-      ('purus.duis@google.couk','VZW24EDV6PH'),
-      ('enim.mi@hotmail.org','YUI89TVR7LQ'),
-      ('nullam.feugiat@yahoo.net','QFI16DPR5SD'),
-      ('curabitur.dictum.phasellus@yahoo.net','CDN60KMU3AT'),
-      ('curabitur.sed.tortor@protonmail.com','ROS26QZV6QH'),
-      ('varius.et@protonmail.ca','ZLH67IQW3MP'),
-      ('proin@hotmail.com','NVV04WJL6DM'),
-      ('id@hotmail.couk','CFB73HWS7EB')`);
+      ('ac@yahoo.edu','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('natoque.penatibus.et@hotmail.com','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('purus.duis@google.couk','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('enim.mi@hotmail.org','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('nullam.feugiat@yahoo.net','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('curabitur.dictum.phasellus@yahoo.net','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('curabitur.sed.tortor@protonmail.com','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('varius.et@protonmail.ca','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('proin@hotmail.com','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg='),
+      ('id@hotmail.couk','GsveDv57hu38175L+nSZjqn8FR3uJ6T0/xD/rvdmAkg=')`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

@@ -1,16 +1,20 @@
-import { Controller, HttpStatus, Inject, UseFilters, UsePipes } from '@nestjs/common';
-import { Body, Get, Param, Patch, Query } from '@nestjs/common/decorators/http';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Controller, HttpStatus, Inject, UseFilters, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Get, Param, Patch } from '@nestjs/common/decorators/http';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CarbonCertificateService } from '../../domain/capabilities/carbon-certificates-service';
+import { CertificateDoesNotBelongToUserError } from '../../domain/exceptions/certificate-does-not-belong-to-user';
 import { CertificateNotFoundError } from '../../domain/exceptions/certificate-not-found';
-import { CarbonCertificateServiceImpl } from '../../domain/services/carbon-certificates/carbon-certificates';
+import { UserNotFoundError } from '../../domain/exceptions/user-not-found';
+import { CarbonCertificateServiceImpl } from '../../domain/services/carbon-certificates';
+import { UserType } from '../../domain/types/user';
+import { User } from '../decorators/user';
 import { ApiErrorFilter } from '../exceptions/filters/api-error-filter';
 import { ErrorStatus } from '../exceptions/transform/error-status';
+import { JwtAuthGuard } from '../guards/jwt-auth-guard';
 import { ApiValidationPipe } from '../pipes/api-validation-pipe';
 import { CarbonCertificateItemResource } from '../resources/certificate/certificate-item';
 import { CertificateItemsResource } from '../resources/certificate/certificate-items';
-import { CertificateFilterQuery } from '../validators/certificate/certificate-filter-query';
 import { CertificateIdParam } from '../validators/certificate/certificate-id-param';
 import { CertificateUpdateBody } from '../validators/certificate/update-body';
 
@@ -26,9 +30,11 @@ export class CarbonCertificateController {
     description: 'Returns carbon certificate information',
   })
   @ApiResponse({ status: HttpStatus.OK, type: CertificateItemsResource })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Get('/v1/certificates/')
-  async obtainManyForOwner(@Query() query: CertificateFilterQuery): Promise<CertificateItemsResource> {
-    const certificates = await this.certificates.obtainManyByOwner(Number(query.userId));
+  async obtainManyForOwner(@User() user: UserType): Promise<CertificateItemsResource> {
+    const certificates = await this.certificates.obtainManyByOwner(Number(user.id));
 
     return CertificateItemsResource.from(certificates);
   }
@@ -51,14 +57,20 @@ export class CarbonCertificateController {
   })
   @ApiResponse({ status: HttpStatus.OK, type: CarbonCertificateItemResource })
   @ErrorStatus(CertificateNotFoundError, HttpStatus.NOT_FOUND)
+  @ErrorStatus(UserNotFoundError, HttpStatus.NOT_FOUND)
+  @ErrorStatus(CertificateDoesNotBelongToUserError, HttpStatus.FORBIDDEN)
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/v1/certificates/:certificateId')
   async updateOneOwnership(
     @Param() param: CertificateIdParam,
     @Body() body: CertificateUpdateBody,
+    @User() user: UserType,
   ): Promise<CarbonCertificateItemResource> {
     const certificates = await this.certificates.updateOneOwnership({
       id: Number(param.certificateId),
       newOwner: body.newOwner,
+      owner: user.id,
     });
 
     return CarbonCertificateItemResource.from(certificates);

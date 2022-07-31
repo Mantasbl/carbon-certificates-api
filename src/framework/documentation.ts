@@ -7,7 +7,8 @@ export const installDocumentation = (app: NestFastifyApplication, options: AppOp
   const documentBuilder = new DocumentBuilder()
     .setTitle(options.title)
     .setDescription(options.description)
-    .setVersion(options.version);
+    .setVersion(options.version)
+    .addBearerAuth();
 
   const document = SwaggerModule.createDocument(app, documentBuilder.build());
 

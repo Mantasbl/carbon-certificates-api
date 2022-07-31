@@ -8,7 +8,6 @@ import { UserNotFoundError } from './../../../domain/exceptions/user-not-found';
 export class UserEntityManager extends Repository<UserEntity> implements UserRepository {
   async obtainUserByUsername(username: string): Promise<User> {
     const userQuery = this.createQueryBuilder('user').where('user.username = :username').setParameters({ username });
-
     const findResult = await userQuery.getOne();
     if (!findResult) {
       throw new UserNotFoundError();

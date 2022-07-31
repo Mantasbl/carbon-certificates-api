@@ -1,17 +1,17 @@
-import { CarbonCertificateService } from '../../../domain/capabilities/carbon-certificates-service';
-import { CarbonCertificate } from '../../../domain/models/carbon-certificate';
 import {
   CarbonCertificateFilterParams,
   CarbonCertificateRepository,
-} from './../../capabilities/carbon-certificates-repository';
-import { UserRepository } from './../../capabilities/user-repository';
+} from '../capabilities/carbon-certificates-repository';
+import { CarbonCertificateService } from '../capabilities/carbon-certificates-service';
+import { UserRepository } from '../capabilities/user-repository';
+import { CarbonCertificate } from '../models/carbon-certificate';
 
 export class CarbonCertificateServiceImpl implements CarbonCertificateService {
   constructor(private certificates: CarbonCertificateRepository, private users: UserRepository) {}
 
   async updateOneOwnership(params: CarbonCertificateFilterParams): Promise<CarbonCertificate> {
     const user = await this.users.obtainUserByUsername(params.newOwner);
-    return await this.certificates.updateOneOwnership({ id: params.id, newOwner: user });
+    return await this.certificates.updateOneOwnership({ id: params.id, newOwner: user, owner: params.owner });
   }
 
   async obtainManyByOwner(userId: number): Promise<CarbonCertificate[]> {
