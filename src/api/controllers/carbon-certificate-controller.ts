@@ -4,7 +4,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CarbonCertificateService } from '../../domain/capabilities/carbon-certificates-service';
 import { CertificateNotFoundError } from '../../domain/exceptions/certificate-not-found';
-import { CarbonCertificateServiceImpl } from '../../domain/services/carbon-certificates/carbon-certificates';
+import { UserNotFoundError } from '../../domain/exceptions/user-not-found';
+import { CarbonCertificateServiceImpl } from '../../domain/services/carbon-certificates';
 import { ApiErrorFilter } from '../exceptions/filters/api-error-filter';
 import { ErrorStatus } from '../exceptions/transform/error-status';
 import { ApiValidationPipe } from '../pipes/api-validation-pipe';
@@ -51,6 +52,7 @@ export class CarbonCertificateController {
   })
   @ApiResponse({ status: HttpStatus.OK, type: CarbonCertificateItemResource })
   @ErrorStatus(CertificateNotFoundError, HttpStatus.NOT_FOUND)
+  @ErrorStatus(UserNotFoundError, HttpStatus.NOT_FOUND)
   @Patch('/v1/certificates/:certificateId')
   async updateOneOwnership(
     @Param() param: CertificateIdParam,

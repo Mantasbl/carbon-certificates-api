@@ -38,6 +38,19 @@ export const CONFIG = {
       },
     };
   }),
+
+  PASSPORT_JWT: registerAs<PassportJWTOptions>('passport-jwt', () => {
+    return {
+      secret: process.env.JWT_SECRET || 'unknown',
+      expiresIn: process.env.JWT_EXPIRES_IN || '12h',
+    };
+  }),
+
+  AUTH: registerAs<AuthOptions>('auth', () => {
+    return {
+      salt: process.env.PASSWORD_SALT || 'unknown',
+    };
+  }),
 };
 
 export interface AppOptions {
@@ -60,4 +73,13 @@ export interface AppOptions {
   readonly swaggerEnabled: boolean;
 
   readonly devMode: boolean;
+}
+
+export interface PassportJWTOptions {
+  readonly secret: string;
+  readonly expiresIn: string;
+}
+
+export interface AuthOptions {
+  readonly salt: string;
 }
