@@ -16,7 +16,7 @@ Once the docker container is running, assuming env has sample values, you should
 
 # Accessing users
 All user usernames can be found in migrations,
-Default passwords for all user are `NotAPassword`, hashed with salt in with, default password is also provided as an example on swagger schema
+Default passwords for all user are `NotAPassword`, stored hashed with salt, default password is also provided as an example on swagger schema
 
 # Running tests
 `npm run test`
